@@ -2,8 +2,10 @@ package app;
 
 import app.pages.LoginPage;
 import app.pages.MainPage;
+import app.pages.director.ProjectReportsPage;
 import app.pages.supervisor.ProjectsListPage;
 import app.pages.supervisor.ProposalListPage;
+import app.pages.director.InstituteProposalsPage;
 
 public class PageBuilder {
 
@@ -19,8 +21,15 @@ public class PageBuilder {
        return new ProposalListPage("/profile/project-proposals");
     }
 
+    public static ProjectReportsPage buildProjectReportsPage() {
+        return new ProjectReportsPage("/profile/inst-project-reports/all/1");
+    }
+
     public static ProjectsListPage buildProjectsListPage() {
         return new ProjectsListPage("/profile/projects");
     }
 
+    public static InstituteProposalsPage buildInstituteProposalsPage() {
+    return new InstituteProposalsPage("/profile/institute-proposals");
+    }
 }
