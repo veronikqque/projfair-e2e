@@ -48,4 +48,16 @@ public class DirectorTests extends A_BaseTest {
         app.projectReportsPage.projectReportsList.shouldHave(sizeGreaterThan(0));
         app.projectReportsPage.downloadDisabled.should(exist);
     }
+    @Test
+    void directorApprovesProjectProposal() {
+        app.mainPage.dropdownMenu.click();
+        app.mainPage.dropdownMenuRoute.find(exactText("Заявки от института")).click();
+        app.projectProposalsPage.newProposalsLink.click();
+        app.projectProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        SelenideElement firstProposal = app.projectProposalsPage.proposalCards.first();
+        app.projectProposalsPage.approvalButton.click();
+        app.projectProposalsPage.approvedProposalsLink.click();
+        app.projectProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        app.projectProposalsPage.proposalStatus.shouldHave(text("Одобрено"));
+    }
 }
