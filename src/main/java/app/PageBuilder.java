@@ -2,6 +2,7 @@ package app;
 
 import app.pages.LoginPage;
 import app.pages.MainPage;
+import app.pages.director.ProjectProposalsPage;
 import app.pages.chimitov.CommandListPage;
 import app.pages.director.ProjectReportsPage;
 import app.pages.supervisor.ProjectsListPage;
@@ -19,6 +20,10 @@ public class PageBuilder {
 
     public static ProposalListPage buildProposalListPage() {
        return new ProposalListPage("/profile/project-proposals");
+    }
+
+     public static ProjectProposalsPage buildProjectProposalsPage() {
+        return new ProjectProposalsPage("/profile/inst-project-proposals/new/1");
     }
 
     public static ProjectReportsPage buildProjectReportsPage() {
