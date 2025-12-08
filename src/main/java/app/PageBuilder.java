@@ -3,6 +3,7 @@ package app;
 import app.pages.LoginPage;
 import app.pages.MainPage;
 import app.pages.director.ProjectProposalsPage;
+import app.pages.chimitov.CommandListPage;
 import app.pages.director.ProjectReportsPage;
 import app.pages.supervisor.ProjectsListPage;
 import app.pages.supervisor.ProposalListPage;
@@ -31,6 +32,10 @@ public class PageBuilder {
 
     public static ProjectsListPage buildProjectsListPage() {
         return new ProjectsListPage("/profile/projects");
+    }
+
+    public static CommandListPage buildCommandListPage()  {
+        return new CommandListPage("/arm/projects");
     }
 
 }

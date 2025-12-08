@@ -3,6 +3,7 @@ package app;
 import app.pages.LoginPage;
 import app.pages.MainPage;
 import app.pages.director.ProjectProposalsPage;
+import app.pages.chimitov.CommandListPage;
 import app.pages.director.ProjectReportsPage;
 import app.pages.supervisor.ProjectsListPage;
 import app.pages.supervisor.ProposalListPage;
@@ -18,6 +19,7 @@ public class App {
     public ProjectReportsPage projectReportsPage;
     public ProjectProposalsPage projectProposalsPage;
 
+    public CommandListPage commandListPage;
     public App() {
 
         mainPage = PageBuilder.buildMainPage();
@@ -26,5 +28,7 @@ public class App {
         projectsListPage = PageBuilder.buildProjectsListPage();
         projectReportsPage = PageBuilder.buildProjectReportsPage();
         projectProposalsPage = PageBuilder.buildProjectProposalsPage();
+        commandListPage = PageBuilder.buildCommandListPage();
+
     }
 }

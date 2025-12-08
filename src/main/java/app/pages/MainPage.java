@@ -11,7 +11,6 @@ import static com.codeborne.selenide.Selenide.confirm;
 import static com.codeborne.selenide.Selenide.dismiss;
 
 public class MainPage extends BasePage {
-    public SelenideElement projectList = $(By.className("project-list"));
     public SelenideElement authButton = $("[data-test='header-user-actions-auth-button']");
     public SelenideElement dropdownMenu = $("[data-test='header-user-actions'] div.user");
     public ElementsCollection dropdownMenuRoute = $$("[data-test='dropdown-list-router-link']");
@@ -20,13 +19,25 @@ public class MainPage extends BasePage {
         super(pageURL);
     }
 
-    public void mockLogin(boolean asSupervisor) {
+    public void mockLogin(boolean asSupervisor, boolean backendPresent, String prompt) {
+        // сделан выбор если бэк запущен или нет через backendPresent (бэкенд присутствует, или бэкенд запущен)
         authButton.click();
-        if (asSupervisor) {
-            confirm();
+        if (backendPresent) {
+            if (asSupervisor) {
+                confirm();
+                prompt(prompt); // api key в таблице supervisors
+            } else {
+                dismiss();
+                confirm();
+                prompt(prompt); // api key в таблице candidates
+            }
         } else {
-            dismiss();
-            confirm();
+            if (asSupervisor) {
+                confirm();
+            } else {
+                dismiss();
+                confirm();
+            }
         }
     }
 
