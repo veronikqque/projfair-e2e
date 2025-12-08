@@ -14,9 +14,12 @@ import java.io.File;
 public class DirectorTests extends A_BaseTest {
     @BeforeClass
     void login() {
+        Configuration.timeout = 20000; // может быть долгая загрузка и тест не отработает просто из-за timeout в 4 секунды, установлено 20 секунд
         app.mainPage.open();
         //app.mainPage.login();
-        app.mainPage.mockLogin(true);
+        app.mainPage.mockLogin(true,
+                true,
+                "");
     }
 
     @Test
@@ -50,47 +53,59 @@ public class DirectorTests extends A_BaseTest {
     }
 
     @Test
-void viewActiveProjectsWithNotDeliveredReports() { //сценарий для просмотра списка активных проектов института без отчета
-    app.mainPage.dropdownMenu.click();
-    app.mainPage.dropdownMenuRoute.find(exactText("Отчёты")).click();
-    app.projectReportsPage.filterAccordion.click();
-    if (!app.projectReportsPage.notDelivieredReportsCheckBox.isSelected()) {
-        app.projectReportsPage.notDelivieredReportsCheckBox.click();
-    } else if (app.projectReportsPage.delivieredReportsCheckBox.isSelected()) {
-        app.projectReportsPage.delivieredReportsCheckBox.click();
+    void viewActiveProjectsWithNotDeliveredReports() { //сценарий для просмотра списка активных проектов института без отчета
+        app.mainPage.dropdownMenu.click();
+        app.mainPage.dropdownMenuRoute.find(exactText("Отчёты")).click();
+        app.projectReportsPage.filterAccordion.click();
+        if (!app.projectReportsPage.notDelivieredReportsCheckBox.isSelected()) {
+            app.projectReportsPage.notDelivieredReportsCheckBox.click();
+        } else if (app.projectReportsPage.delivieredReportsCheckBox.isSelected()) {
+            app.projectReportsPage.delivieredReportsCheckBox.click();
+        }
+        app.projectReportsPage.notDelivieredReportsCheckBox.shouldBe(checked);
+        app.projectReportsPage.projectReportsList.shouldHave(sizeGreaterThan(0));
     }
-    app.projectReportsPage.notDelivieredReportsCheckBox.shouldBe(checked);
-    app.projectReportsPage.projectReportsList.shouldHave(sizeGreaterThan(0));
-}
 
-@Test
-void viewInstituteProposalsByCategories() { //сценарий для просмотра проектных заявок
-    //app.instituteProposalsPage.open();
-    app.mainPage.dropdownMenu.click();
-    app.mainPage.dropdownMenuRoute.find(exactText("Заявки от института")).click();
+    @Test
+    void viewInstituteProposalsByCategories() { //сценарий для просмотра проектных заявок
+        //app.instituteProposalsPage.open();
+        app.mainPage.dropdownMenu.click();
+        app.mainPage.dropdownMenuRoute.find(exactText("Заявки от института")).click();
     
-    // "Новые"
-    app.instituteProposalsPage.newProposalsTab.click();
-    app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
-    app.instituteProposalsPage.proposalCards.first().click();
-    Driver.currentDriver().navigate().back();
+        // "Новые"
+        app.instituteProposalsPage.newProposalsTab.click();
+        app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        app.instituteProposalsPage.proposalCards.first().click();
+        Driver.currentDriver().navigate().back();
     
-    // "Одобренные на осень"
-    app.instituteProposalsPage.approvedAutumnTab.click();
-    app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
-    app.instituteProposalsPage.proposalCards.first().click();
-    Driver.currentDriver().navigate().back();
+        // "Одобренные на осень"
+        app.instituteProposalsPage.approvedAutumnTab.click();
+        app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        app.instituteProposalsPage.proposalCards.first().click();
+        Driver.currentDriver().navigate().back();
     
-    // "Одобренные на весну"
-    app.instituteProposalsPage.approvedSpringTab.click();
-    app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
-    app.instituteProposalsPage.proposalCards.first().click();
-    Driver.currentDriver().navigate().back();
+        // "Одобренные на весну"
+        app.instituteProposalsPage.approvedSpringTab.click();
+        app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        app.instituteProposalsPage.proposalCards.first().click();
+        Driver.currentDriver().navigate().back();
     
-    // "Отклонённые"
-    app.instituteProposalsPage.rejectedProposalsTab.click();
-    app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
-    app.instituteProposalsPage.proposalCards.first().click();
-    Driver.currentDriver().navigate().back();
-}
+        // "Отклонённые"
+        app.instituteProposalsPage.rejectedProposalsTab.click();
+        app.instituteProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        app.instituteProposalsPage.proposalCards.first().click();
+        Driver.currentDriver().navigate().back();
+    }
+    @Test
+    void directorApprovesProjectProposal() {
+        app.mainPage.dropdownMenu.click();
+        app.mainPage.dropdownMenuRoute.find(exactText("Заявки от института")).click();
+        app.projectProposalsPage.newProposalsLink.click();
+        app.projectProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        SelenideElement firstProposal = app.projectProposalsPage.proposalCards.first();
+        app.projectProposalsPage.approvalButton.click();
+        app.projectProposalsPage.approvedProposalsLink.click();
+        app.projectProposalsPage.proposalCards.shouldHave(sizeGreaterThan(0));
+        app.projectProposalsPage.proposalStatus.shouldHave(text("Одобрено"));
+    }
 }

@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Configuration;
 import org.testng.annotations.*;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
@@ -5,10 +6,13 @@ import static com.codeborne.selenide.Condition.*;
 
 public class SupervisorTests extends A_BaseTest {
     @BeforeClass
-    void login(){
+    void login() {
+        Configuration.timeout = 20000; // может быть долгая загрузка и тест не отработает просто из-за timeout в 4 секунды, установлено 20 секунд
         app.mainPage.open();
         //app.mainPage.login();
-        app.mainPage.mockLogin(true);
+        app.mainPage.mockLogin(true,
+                true,
+                "");
     }
     @Test
     void checkProposals() {

@@ -2,6 +2,8 @@ package app;
 
 import app.pages.LoginPage;
 import app.pages.MainPage;
+import app.pages.director.ProjectProposalsPage;
+import app.pages.chimitov.CommandListPage;
 import app.pages.director.ProjectReportsPage;
 import app.pages.supervisor.ProjectsListPage;
 import app.pages.supervisor.ProposalListPage;
@@ -21,6 +23,10 @@ public class PageBuilder {
        return new ProposalListPage("/profile/project-proposals");
     }
 
+     public static ProjectProposalsPage buildProjectProposalsPage() {
+        return new ProjectProposalsPage("/profile/inst-project-proposals/new/1");
+    }
+
     public static ProjectReportsPage buildProjectReportsPage() {
         return new ProjectReportsPage("/profile/inst-project-reports/all/1");
     }
@@ -30,6 +36,10 @@ public class PageBuilder {
     }
 
     public static InstituteProposalsPage buildInstituteProposalsPage() {
-    return new InstituteProposalsPage("/profile/institute-proposals");
+        return new InstituteProposalsPage("/profile/institute-proposals");
     }
+    public static CommandListPage buildCommandListPage()  {
+        return new CommandListPage("/arm/projects");
+    }
+
 }
