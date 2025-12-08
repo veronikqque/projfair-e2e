@@ -7,6 +7,7 @@ import app.pages.chimitov.CommandListPage;
 import app.pages.director.ProjectReportsPage;
 import app.pages.supervisor.ProjectsListPage;
 import app.pages.supervisor.ProposalListPage;
+import app.pages.director.InstituteProposalsPage;
 
 public class PageBuilder {
 
@@ -34,6 +35,9 @@ public class PageBuilder {
         return new ProjectsListPage("/profile/projects");
     }
 
+    public static InstituteProposalsPage buildInstituteProposalsPage() {
+        return new InstituteProposalsPage("/profile/institute-proposals");
+    }
     public static CommandListPage buildCommandListPage()  {
         return new CommandListPage("/arm/projects");
     }

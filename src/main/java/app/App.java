@@ -27,6 +27,7 @@ public class App {
         proposalListPage = PageBuilder.buildProposalListPage();
         projectsListPage = PageBuilder.buildProjectsListPage();
         projectReportsPage = PageBuilder.buildProjectReportsPage();
+        instituteProposalsPage = PageBuilder.buildInstituteProposalsPage()
         projectProposalsPage = PageBuilder.buildProjectProposalsPage();
         commandListPage = PageBuilder.buildCommandListPage();
 
